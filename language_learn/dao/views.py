@@ -3,4 +3,4 @@ from django.http import HttpResponse
 
 
 def index_dao(request):
-    return render(request, "dao/index.html")
+    return render(request, "dao/main.html")

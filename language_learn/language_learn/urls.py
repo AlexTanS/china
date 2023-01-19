@@ -18,7 +18,7 @@ from django.urls import path, include
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path("dao/", include("dao.urls")),
+    path("", include("dao.urls")),
     path('admin/', admin.site.urls),
 ]
 
