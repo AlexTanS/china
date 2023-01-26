@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'language_learn.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': path.join(BASE_DIR, 'course.data'),
     }
 }
 

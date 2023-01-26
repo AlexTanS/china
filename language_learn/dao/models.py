@@ -1,6 +1,6 @@
 from django.db import models
 
-
+#
 # class Rubrics(models.Model):
 #     """Рубрики (к какой странице прикреплять тот или иной текст из модели ContentBase)."""
 #     name = models.CharField(max_length=255, verbose_name="Рубрика")  # рубрика - страница на поределенную тему
