@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+
 
 #
 # class Rubrics(models.Model):
@@ -23,6 +25,13 @@ from django.db import models
 #         verbose_name_plural = "База текстов для обычных страниц сайта"
 #         verbose_name = "текст обычной страницы сайта"
 #         ordering = ["-published"]
+
+class AdvUser(AbstractUser):
+    is_activated = models.BooleanField(default=True, db_index=True, verbose_name="Прошел активацию?")
+    send_messages = models.BooleanField(default=True, verbose_name="Присылать оповещения?")
+
+    class Meta:
+        pass
 
 # class Courses(models.Model):
 #     """Описание крусов."""

@@ -13,16 +13,5 @@ def other_page(request, page):
     try:
         template = get_template("dao/" + page + ".html")
     except TemplateDoesNotExist:
-        # print("---------- request ------------")
-        # print(request)
-        # print("---------- dir(request) ------------")
-        # print(dir(request))
-        # print("---------- request.GET ------------")
-        # print(request.GET)
-        # print("---------- page ------------")
-        # print(page)
-        # print("---------- dir(page) ------------")
-        # print(dir(page))
-        # print()
         raise Http404
     return HttpResponse(template.render(request=request))
