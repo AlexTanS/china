@@ -1,0 +1,12 @@
+{% extends "dao/index.html" %}
+
+{% block title %}
+Ошибка при активации
+{% endblock %}
+
+{% block content %}
+    <div class="text-center">
+        <p>Активация пользователя с таким логином прошла неудачно.</p>
+        <p><a href="{% url "register" %}">Зарегистрироваться повторно</a></p>
+    </div>
+{% endblock %}

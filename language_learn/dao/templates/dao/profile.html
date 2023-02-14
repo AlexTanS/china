@@ -1,0 +1,14 @@
+{% extends "dao/index.html" %}
+
+{% block title %}
+Личный кабинет
+{% endblock %}
+
+{% block content %}
+    <div class="text-center">
+        <p>Здесь будет страница личного кабинета</p>
+    </div>
+    <div>
+        <p>Пользователь: {{ user.username }}</p>
+    </div>
+{% endblock %}

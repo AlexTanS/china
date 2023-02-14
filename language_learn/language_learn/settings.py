@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "dao.apps.DaoConfig",
+    "django_bootstrap5",
 ]
 
 MIDDLEWARE = [
@@ -126,4 +127,21 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_ROOT = path.join(BASE_DIR, "media/")
 MEDIA_URL = "/media/"
 
+AUTH_USER_MODEL = "dao.AdvUser"
 
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+DEFAULT_FROM_EMAIL = "tanaev@bk.ru"
+EMAIL_HOST = "smtp.mail.ru"
+EMAIL_PORT = 465
+EMAIL_HOST_USER = "tanaev@bk.ru"
+EMAIL_HOST_PASSWORD = "ibmgbyZZT3AzjumFsKdF"
+EMAIL_USE_SSL = True
+
+#
+# EMAIL_HOST = 'smtp.mail.ru'
+# EMAIL_PORT = 2525
+# EMAIL_HOST_USER = "tanaev@bk.ru"
+# EMAIL_HOST_PASSWORD = "ibmgbyZZT3AzjumFsKdF"
+# EMAIL_USE_TLS = True
+# EMAIL_USE_SSL = False

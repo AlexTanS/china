@@ -1,0 +1,12 @@
+{% extends "dao/index.html" %}
+
+{% block title %}
+Пользователь уже зарегистрирован
+{% endblock %}
+
+{% block content %}
+    <div class="text-center">
+        <p>Пользователь с таким логином уже был активирован ранее.</p>
+        <p><a href="{% url "login" %}">Войти на сайт</a></p>
+    </div>
+{% endblock %}

@@ -1,53 +1,53 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.dispatch import Signal
+from .utilities import send_activation_notification
 
+user_registrated = Signal(providing_args=["instance"])
 
-#
-# class Rubrics(models.Model):
-#     """Рубрики (к какой странице прикреплять тот или иной текст из модели ContentBase)."""
-#     name = models.CharField(max_length=255, verbose_name="Рубрика")  # рубрика - страница на поределенную тему
-#
-#     class Meta:
-#         verbose_name_plural = "Рубрики"
-#         verbose_name = "рубрика"
-#
-#
-# class ContentBase(models.Model):
-#     """Тексты для страниц."""
-#     title = models.CharField(max_length=255, verbose_name="Заголовок")  # заголовок
-#     content = models.TextField(null=True, blank=True, verbose_name="Текст")  # текст
-#     rubric = models.ForeignKey(Rubrics, on_delete=models.PROTECT, verbose_name="Рубрика")
-#     # TODO Поле для фотографии models.ImageField
-#     published = models.DateTimeField(auto_now_add=True, db_index=True,
-#                                      verbose_name="Дата публикации")  # дата публикации
-#
-#     class Meta:
-#         verbose_name_plural = "База текстов для обычных страниц сайта"
-#         verbose_name = "текст обычной страницы сайта"
-#         ordering = ["-published"]
 
 class AdvUser(AbstractUser):
+    """Модель пользователей."""
     is_activated = models.BooleanField(default=True, db_index=True, verbose_name="Прошел активацию?")
     send_messages = models.BooleanField(default=True, verbose_name="Присылать оповещения?")
+    courses = models.ManyToManyField("Course", blank=True, related_name="users")  # связь с курсами
 
     class Meta:
         pass
 
-# class Courses(models.Model):
-#     """Описание крусов."""
-#     title = models.CharField(max_length=255, verbose_name="Курс")  # название курса
-#     # img = models.ImageField(upload_to="/media/", height_field=150, width_field=200,
-#     #                         verbose_name="Фото")  # иллюстрация курса (фото)
-#     content = models.TextField(null=True, blank=True, verbose_name="Описание")  # описание курса (текст)
-#     price = models.DecimalField(null=True, blank=True, verbose_name="Стоимость")  # цена курса
-#     discount = models.DecimalField(null=True, blank=True,
-#                                    verbose_name="Скидка")  # скидка (коэфициент на который умножается цена)
-#     rating = models.IntegerField(max_length=255,
-#                                  verbose_name="Рейтинг")  # рейтинг курса (влияет на отображение на сайте)
-#     published = models.DateTimeField(auto_now_add=True, db_index=True,
-#                                      verbose_name="Дата публикации")  # дата публикации
-#
-#     class Meta:
-#         verbose_name_plural = "База курсов"
-#         verbose_name = "курс обучения"
-#         ordering = ["rating"]
+
+class Progress(models.Model):
+    """Прогресс обучения в играх."""
+    game = models.PositiveSmallIntegerField(verbose_name="Номер игры")
+    part_game = models.PositiveSmallIntegerField(verbose_name="Часть в игре")
+    is_status = models.BooleanField(default=False, verbose_name="Играл ли в эту игру?")
+    assessment = models.BooleanField(default=False, verbose_name="Прошел ли игру (оценка)?")
+    user = models.ForeignKey(AdvUser, on_delete=models.PROTECT)
+
+    class Meta:
+        pass
+
+
+class Course(models.Model):
+    """Описание курсов."""
+    title = models.CharField(max_length=255, verbose_name="Курс")  # название курса
+    # img = models.ImageField(upload_to="/media/", height_field=150, width_field=200,
+    #                         verbose_name="Фото")  # иллюстрация курса (фото)
+    content = models.TextField(verbose_name="Описание")  # описание курса (текст)
+    price = models.IntegerField(verbose_name="Стоимость в копейках")  # цена курса в копейках
+    rating = models.SmallIntegerField(verbose_name="Рейтинг",  # рейтинг курса (влияет на отображение на сайте)
+                                      help_text="Чем больше цифра тем выше он на сайте показывается")
+    published = models.DateTimeField(auto_now_add=True, db_index=True,
+                                     verbose_name="Дата публикации")  # дата публикации
+
+    class Meta:
+        verbose_name_plural = "База курсов"
+        verbose_name = "курс обучения"
+        ordering = ["rating"]
+
+
+def user_registrated_dispatcher(sender, **kwargs):
+    send_activation_notification(kwargs["instance"])
+
+
+user_registrated.connect(user_registrated_dispatcher)

@@ -20,9 +20,10 @@ from django.contrib.staticfiles.views import serve
 from django.views.decorators.cache import never_cache
 
 urlpatterns = [
-    path("", include("dao.urls", namespace="")),
     path('admin/', admin.site.urls),
+    path("", include("dao.urls")),
 ]
 
 if settings.DEBUG:
     urlpatterns.append(path("static/<path:path>", never_cache(serve)))
+

@@ -2,3 +2,10 @@ Role:admin
 Username:teacher
 Password:123Rty789
 ----------------------------------------------
+Role:users
+
+Username:user1
+Password:qwertyuiop1234567890
+
+Username:user2
+Password:qwertfdgop1234567
