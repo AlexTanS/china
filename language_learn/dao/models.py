@@ -8,12 +8,15 @@ user_registrated = Signal(providing_args=["instance"])
 
 class AdvUser(AbstractUser):
     """Модель пользователей."""
+
     is_activated = models.BooleanField(default=True, db_index=True, verbose_name="Прошел активацию?")
     send_messages = models.BooleanField(default=True, verbose_name="Присылать оповещения?")
     courses = models.ManyToManyField("Course", blank=True, related_name="users")  # связь с курсами
 
     class Meta:
-        pass
+        verbose_name_plural = "Список пользователей"
+        verbose_name = "пользователя"
+
 
 
 class Progress(models.Model):
@@ -30,11 +33,14 @@ class Progress(models.Model):
 
 class Course(models.Model):
     """Описание курсов."""
-    title = models.CharField(max_length=255, verbose_name="Курс")  # название курса
+    title = models.CharField(max_length=255, verbose_name="Курс",
+                             help_text="Наименование курса (не более 255 букв)")  # название курса
     # img = models.ImageField(upload_to="/media/", height_field=150, width_field=200,
     #                         verbose_name="Фото")  # иллюстрация курса (фото)
-    content = models.TextField(verbose_name="Описание")  # описание курса (текст)
-    price = models.IntegerField(verbose_name="Стоимость в копейках")  # цена курса в копейках
+    content = models.TextField(verbose_name="Описание",
+                               help_text="На пишите текст который будет отображаться на сайте - краткое описание")  # описание курса (текст)
+    price = models.IntegerField(verbose_name="Стоимость в копейках",
+                                help_text="Стоимость курса обучения в копейках для простоты расчетов")  # цена курса в копейках
     rating = models.SmallIntegerField(verbose_name="Рейтинг",  # рейтинг курса (влияет на отображение на сайте)
                                       help_text="Чем больше цифра тем выше он на сайте показывается")
     published = models.DateTimeField(auto_now_add=True, db_index=True,

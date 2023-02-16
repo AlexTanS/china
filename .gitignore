@@ -134,3 +134,5 @@ GitHub.sublime-settings
 !.vscode/extensions.json
 .history
 /language_learn/bootstrap-5.3.0-alpha1-dist/
+/language_learn/dao/migrations/
+/language_learn/course.data
