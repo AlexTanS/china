@@ -10,7 +10,7 @@ from django.views.generic.base import TemplateView
 from django.urls import reverse_lazy
 from django.core.signing import BadSignature
 
-from .models import AdvUser
+from .models import *
 from .forms import RegisterUserForm
 from .utilities import signer
 
@@ -27,6 +27,12 @@ def other_page(request, page):
     except TemplateDoesNotExist:
         raise Http404
     return HttpResponse(template.render(request=request))
+
+
+# страница курсы
+def cources(request):
+    data = ["weqweq", "232342"]
+    return render(request, "dao/cources.html", context={"h": data})
 
 
 # страница входа пользователя
@@ -77,6 +83,3 @@ def user_activate(request, sign):
         user.is_activated = True
         user.save()
     return render(request, template)
-
-
-# def test_my(request, sign): return HttpResponse("Ответ, {{ sign }}")

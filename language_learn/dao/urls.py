@@ -13,4 +13,5 @@ urlpatterns = [
     path("accounts/register/done/", DaoRegisterDoneView.as_view(), name="register_done"),
     path("accounts/register/", DaoRegisterUserView.as_view(), name="register"),  # страница регистрации пользователя
     path("accounts/register/activate/<str:sign>/", user_activate, name="register_activate"),  # активация пользователя
+    path("cources/", cources, name="cources"),  # страница курсы
 ]
