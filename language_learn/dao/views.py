@@ -30,9 +30,9 @@ def other_page(request, page):
 
 
 # страница курсы
-def cources(request):
-    data = ["weqweq", "232342"]
-    return render(request, "dao/cources.html", context={"h": data})
+def course(request):
+    data = list(Course.objects.values())
+    return render(request, "dao/course.html", context={"data": data})
 
 
 # страница входа пользователя

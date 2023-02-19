@@ -7,7 +7,13 @@
 {% block content %}
 <div class="text-center">
     <p>Здесь будет страница с курсами обучения</p>
-
+    {% for d in data %}
+        <div>
+        <h6>{{ d.title }}</h6>
+        <p>{{ d.content }}</p>
+        <p>{{ d.price }}</p>
+        </div>
+    {% endfor %}
 
 
 </div>
