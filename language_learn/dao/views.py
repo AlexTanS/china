@@ -34,10 +34,10 @@ def course(request):
     data = list()
     for datum in list(Course.objects.order_by("-rating")):
         d = list()
-        d.append(datum["title"])
-        d.append(datum["content"])
-        d.append(datum["price"])
-        d.append(datum["rating"])
+        d.append(datum.title)
+        d.append(datum.content)
+        d.append(datum.price)
+        d.append(datum.rating)
         data.append(d)
     # data.sort(key=lambda x: -x[3])  # сортировка по назначенному рейтингу
     return render(request, "dao/course.html", context={"data": data})
